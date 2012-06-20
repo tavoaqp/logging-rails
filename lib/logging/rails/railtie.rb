@@ -42,7 +42,10 @@ module Logging::Rails
     end
 
     initializer 'logging.initialize_cache', :after => 'initialize_cache' do
-      ::Rails.cache.logger = ::Logging::Logger[::Rails.cache]
+      begin
+        ::Rails.cache.logger = ::Logging::Logger[::Rails.cache]
+      rescue
+      end
     end
 
     config.after_initialize do |app|
